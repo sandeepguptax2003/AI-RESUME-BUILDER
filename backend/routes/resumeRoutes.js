@@ -29,6 +29,6 @@ router.put('/:id', updateResume);
 router.delete('/:id', deleteResume);
 
 // Get AI suggestions for a resume
-router.post('/ai-suggestions/:id', getAISuggestions);
+router.post('/ai-suggestions', getAISuggestions);
 
 module.exports = router;

@@ -116,3 +116,4 @@ exports.getAISuggestions = async (req, res) => {
     });
   }
 };
+
