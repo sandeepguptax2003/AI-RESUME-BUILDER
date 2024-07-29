@@ -33,9 +33,22 @@ export const TemplateSelection = () => {
     setLoading(true);
     setError("");
     try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        setError('You must be logged in to use this feature.');
+        setLoading(false);
+        return;
+      }
+  
       const response = await axios.post(
         "https://ai-resume-builder-backend-3nc0.onrender.com/api/resumes/ai-suggestions",
-        { jobDescription }
+        { jobDescription },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       );
       setAiResponse(response.data.suggestions);
     } catch (error) {

@@ -31,9 +31,8 @@ export const Navbar = () => {
 
         <div className="flex items-center space-x-4">
           <span className="text-lg">
-            Welcome{" "}
             <span className="text-green-600 text-xl font-bold">
-              {userName ? userName : "User"} {/* Display 'User' if username is not available */}
+              
             </span>
           </span>
           <button

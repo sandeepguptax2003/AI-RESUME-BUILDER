@@ -12,9 +12,22 @@ const AiSuggestions = () => {
     setSuggestions('');
 
     try {
-      const response = await axios.post('https://ai-resume-builder-backend-3nc0.onrender.com/api/resumes/ai-suggestions', {
-        jobDescription,
-      });
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        setError('You must be logged in to use this feature.');
+        return;
+      }
+
+      const response = await axios.post(
+        'https://ai-resume-builder-backend-3nc0.onrender.com/api/resumes/ai-suggestions',
+        { jobDescription },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
 
       setSuggestions(response.data.suggestions);
     } catch (err) {
