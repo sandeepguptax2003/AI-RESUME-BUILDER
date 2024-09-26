@@ -10,25 +10,25 @@ const {
 } = require('../controllers/resumeController');
 const auth = require('../middleware/auth');
 
-// All routes in this file should be protected
+//All routes in this file should be protected
 router.use(auth);
 
-// Create a new resume
+//Create a new resume
 router.post('/', createResume);
 
-// Get all resumes for the logged-in user
+//Get all resumes for the logged-in user
 router.get('/', getResumes);
 
-// Get a specific resume by ID
+//Get a specific resume by ID
 router.get('/:id', getResumeById);
 
-// Update a resume
+//Update a resume
 router.put('/:id', updateResume);
 
-// Delete a resume
+//Delete a resume
 router.delete('/:id', deleteResume);
 
-// Get AI suggestions for a resume
+//Get AI suggestions for a resume
 router.post('/ai-suggestions', getAISuggestions);
 
 module.exports = router;

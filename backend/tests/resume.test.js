@@ -35,6 +35,7 @@ describe('Resume Routes', () => {
     await Resume.deleteMany({});
   });
 
+  //tests for the create resume routes
   describe('POST /api/resumes', () => {
     it('should create a new resume', async () => {
       const res = await request(app)
@@ -70,6 +71,7 @@ describe('Resume Routes', () => {
     });
   });
 
+   //tests for the get resume routes
   describe('GET /api/resumes/:id', () => {
     it('should get a specific resume', async () => {
       const resume = await Resume.create({
@@ -88,6 +90,7 @@ describe('Resume Routes', () => {
     });
   });
 
+   //tests for the update resume routes
   describe('PUT /api/resumes/:id', () => {
     it('should update a resume', async () => {
       const resume = await Resume.create({
@@ -110,6 +113,7 @@ describe('Resume Routes', () => {
     });
   });
 
+   //tests for the delete resume routes
   describe('DELETE /api/resumes/:id', () => {
     it('should delete a resume', async () => {
       const resume = await Resume.create({
@@ -130,6 +134,7 @@ describe('Resume Routes', () => {
     });
   });
 
+   //tests for the ai suggestions resume routes
   describe('POST /api/resumes/:id/suggestions', () => {
     it('should get AI suggestions for a resume', async () => {
       const resume = await Resume.create({

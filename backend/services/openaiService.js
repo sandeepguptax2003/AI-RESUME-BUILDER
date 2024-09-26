@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const genAI = new GoogleGenerativeAI(process.env.OPENAI_API_KEY);
 
+//function to get ai suggestions
 exports.getAISuggestions = async (resume, jobDescription) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -19,9 +20,10 @@ Please provide specific suggestions to tailor a resume for this job description.
 4. Keywords to include
 5. Sections to add or modify`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+//Generate content by passing the prompt to the generative model
+const result = await model.generateContent(prompt);
+const response = await result.response;
+const text = response.text();
 
     return text.trim();
   } catch (error) {

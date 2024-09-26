@@ -1,11 +1,13 @@
 const Resume = require('../models/Resume');
 const openaiService = require('../services/openaiService');
 
+//Function to handle the creation of a new resume
 exports.createResume = async (req, res) => {
   try {
     const { title, sections } = req.body;
     const userId = req.user.userId;
 
+    //Create a new Resume
     const newResume = new Resume({
       userId,
       title,
@@ -31,6 +33,7 @@ exports.createResume = async (req, res) => {
   }
 };
 
+//Function to fetch all resumes
 exports.getResumes = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -47,6 +50,7 @@ exports.getResumes = async (req, res) => {
   }
 };
 
+//Function to fetch a specific resume by its ID
 exports.getResumeById = async (req, res) => {
   try {
     const resume = await Resume.findOne({ _id: req.params.id, userId: req.user.userId });
@@ -60,6 +64,7 @@ exports.getResumeById = async (req, res) => {
   }
 };
 
+//Function to update an existing resume
 exports.updateResume = async (req, res) => {
   try {
     const { title, sections } = req.body;
@@ -81,6 +86,7 @@ exports.updateResume = async (req, res) => {
   }
 };
 
+//Function to delete resume by ID
 exports.deleteResume = async (req, res) => {
   try {
     const resume = await Resume.findOneAndDelete({ _id: req.params.id, userId: req.user.userId });
@@ -96,6 +102,7 @@ exports.deleteResume = async (req, res) => {
   }
 };
 
+//Function to get AI-based suggestions for a job description
 exports.getAISuggestions = async (req, res) => {
   console.log('Received request body:', req.body);
   try {
@@ -105,7 +112,6 @@ exports.getAISuggestions = async (req, res) => {
       return res.status(400).json({ message: "Job description is required" });
     }
 
-    // We're not using the resume for now, so we'll pass null
     const suggestions = await openaiService.getAISuggestions(null, jobDescription);
     res.json({ suggestions });
   } catch (error) {

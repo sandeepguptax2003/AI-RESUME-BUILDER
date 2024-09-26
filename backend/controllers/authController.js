@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+//Function to handle user registration
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -11,8 +12,10 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    //Create a new user
     user = new User({ username, email, password });
 
+    //salt for hashing the password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
@@ -28,6 +31,7 @@ exports.register = async (req, res) => {
   }
 };
 
+//Function to handle user login
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -37,11 +41,13 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
+    //Compare the provided password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
+    //Generate a JWT
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.json({ 
@@ -54,6 +60,7 @@ exports.login = async (req, res) => {
   }
 };
 
+//Function to handle user logout
 exports.logout = (req, res) => {
   // In a stateless JWT setup, we don't need to do anything server-side for logout
   // The client should remove the token from storage

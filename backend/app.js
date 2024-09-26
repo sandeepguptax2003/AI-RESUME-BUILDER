@@ -5,35 +5,35 @@ const connectDB = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
 const resumeRoutes = require('./routes/resumeRoutes');
 
-// Load environment variables
+//Load environment variables
 dotenv.config();
 
-// Initialize express app
+//Initialize express app
 const app = express();
 
-// Connect to database
+//Connect to database
 connectDB();
 
-// Middleware
+//Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
+//Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/resumes', resumeRoutes);
 
-// Error handling middleware
+//Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
 
-// Default route
+//Default route
 app.get('/', (req, res) => {
   res.send('AI-Powered Resume Builder API');
 });
 
-// Start server
+//Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 

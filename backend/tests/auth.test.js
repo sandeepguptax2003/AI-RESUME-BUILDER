@@ -21,6 +21,7 @@ describe('Auth Routes', () => {
     await User.deleteMany({});
   });
 
+  //Tests for the registration route
   describe('POST /api/auth/register', () => {
     it('should register a new user', async () => {
       const res = await request(app)
@@ -56,6 +57,7 @@ describe('Auth Routes', () => {
     });
   });
 
+  //Tests for the login route
   describe('POST /api/auth/login', () => {
     it('should login an existing user', async () => {
       const user = await User.create({
